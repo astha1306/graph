@@ -14,9 +14,9 @@ public class DFS {
     public static void dfsRecursive(Graph graph, int[] visited, int node, List<Integer> output) {
         visited[node] = 1;
         output.add(node);
-        for (int next : graph.getAdjList().get(node)) {
-            if(visited[next] != 1) {
-                dfsRecursive(graph, visited, next, output);
+        for (Edge edge : graph.getAdjList().get(node)) {
+            if(visited[edge.dest] != 1) {
+                dfsRecursive(graph, visited, edge.dest, output);
             }
         }
     }
