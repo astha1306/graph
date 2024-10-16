@@ -1,14 +1,16 @@
 package com.dsa.graph;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Graph {
 
-    private List<List<Integer>> adjList;
+    private Map<Integer, List<Edge>> adjList;
     private boolean isDirected;
 
-    public List<List<Integer>> getAdjList() {
+    public Map<Integer, List<Edge>> getAdjList() {
         return adjList;
     }
 
@@ -16,22 +18,42 @@ public class Graph {
         return isDirected;
     }
 
-    public Graph(List<Edge> edges, boolean isDirected ) {
-        int n = edges.size();
-        adjList = new ArrayList<>();
+    public Graph() {
+        adjList = new HashMap<>();
+        isDirected = false;
+    }
+
+    public Graph(List<Edge> edges, boolean isDirected) {
+        this();
+        for (Edge edge : edges) {
+            addEdge(edge);
+        }
         this.isDirected = isDirected;
-        for(int i = 0; i < n; i++) {
-            adjList.add(new ArrayList<Integer>());
-        }
-        for(Edge edge : edges) {
-            adjList.get(edge.src).add(edge.dest);
-            if(!isDirected) {
-                adjList.get(edge.dest).add(edge.src);
-            }
-        }
     }
 
     public Graph(List<Edge> edges) {
         this(edges, false);
+    }
+
+    //add a vertex to the graph
+    public void addVertex(int vertex) {
+        if (!adjList.containsKey(vertex)) {
+            adjList.put(vertex, new ArrayList<Edge>());
+        }
+    }
+
+    //add an edge
+    public void addEdge(Edge edge) {
+        if (!adjList.containsKey(edge.src)) {
+            addVertex(edge.src);
+        }
+        adjList.get(edge.src).add(edge);
+
+        if(!this.isDirected) {//undirected
+            if (!adjList.containsKey(edge.dest)) {
+                addVertex(edge.dest);
+            }
+            adjList.get(edge.dest).add(new Edge(edge.dest, edge.src, edge.weight));
+        }
     }
 }

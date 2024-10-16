@@ -25,10 +25,10 @@ public class BFS {
         while (!queue.isEmpty()) {
             int node = queue.poll();
             bfs.add(node);
-            for(int num : graph.getAdjList().get(node)) {
-                if(visited[num] != 1) {
-                    queue.offer(num);
-                    visited[num] = 1;
+            for(Edge edge : graph.getAdjList().get(node)) {
+                if(visited[edge.dest] != 1) {
+                    queue.offer(edge.dest);
+                    visited[edge.dest] = 1;
                 }
             }
         }
