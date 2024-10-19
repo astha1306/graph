@@ -5,18 +5,22 @@ import java.util.List;
 
 public class DFS {
 
-    public static void dfsTraversalRecursive(Graph graph) {
+    public static int[] dfsTraversalRecursive(Graph graph) {//ToDo add for loop to cover all node instead of starting from 1
+        int n = graph.getAdjList().size();
         int[] visited = new int[graph.getAdjList().size() + 1];
-        List<Integer> output = new ArrayList<>();
-        dfsRecursive(graph, visited, 0, output);
+        int[] output = new int[n];
+        int i = 0;
+        dfsRecursive(graph, visited, 1, output, i);
+        return output;
+
     }
 
-    public static void dfsRecursive(Graph graph, int[] visited, int node, List<Integer> output) {
+    public static void dfsRecursive(Graph graph, int[] visited, int node, int[] output, int i) {
         visited[node] = 1;
-        output.add(node);
-        for (Edge edge : graph.getAdjList().get(node)) {
-            if(visited[edge.dest] != 1) {
-                dfsRecursive(graph, visited, edge.dest, output);
+        output[i++] = node;
+        for (Graph.Node next : graph.getAdjList().get(node)) {
+            if(visited[next.getVertex()] != 1) {
+                dfsRecursive(graph, visited, next.getVertex(), output, i);
             }
         }
     }
