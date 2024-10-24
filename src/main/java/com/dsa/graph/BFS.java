@@ -16,22 +16,24 @@ public class BFS {
     // store its adj elements in queue, mark them visited.
     //repeat!
 
-    public static void bfsTraversalIterative(Graph graph, int root) {
-        List<Integer> bfs = new ArrayList<>();
-        int[] visited = new int[graph.getAdjList().size() + 1];
+    public static int[] traversalIterative(Graph graph, int root) {
+        List<List<Graph.Node>> adjList = graph.getAdjList();
+        int[] bfs = new int[adjList.size() + 1];
+        int[] visited = new int[adjList.size() + 1];
         Queue<Integer> queue = new LinkedList<>();
         queue.offer(root);
         visited[root] = 1;
+        int i = 0;
         while (!queue.isEmpty()) {
             int node = queue.poll();
-            bfs.add(node);
-            for(int num : graph.getAdjList().get(node)) {
-                if(visited[num] != 1) {
-                    queue.offer(num);
-                    visited[num] = 1;
+            bfs[i++] = node;
+            for(Graph.Node next : graph.getAdjList().get(node)) {
+                if(visited[next.getVertex()] != 1) {
+                    queue.offer(next.getVertex());
+                    visited[next.getVertex()] = 1;
                 }
             }
         }
-
+        return bfs;
     }
 }
