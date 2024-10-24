@@ -24,6 +24,7 @@ public class Graph {
 
     public Graph(List<Edge> edges, boolean isDirected) {
         this();
+        this.isDirected = isDirected;
         int n = 0;
         for(Edge edge : edges) {
             n = Math.max(n , Math.max(edge.src, edge.dest));
@@ -34,7 +35,6 @@ public class Graph {
         for (Edge edge : edges) {
             addEdge(edge);
         }
-        this.isDirected = isDirected;
     }
 
     public Graph(List<Edge> edges) {
