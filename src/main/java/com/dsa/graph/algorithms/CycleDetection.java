@@ -98,6 +98,7 @@ public class CycleDetection {
     }
 
 
+    //Topological Sorting : the src should appear before its dest.
     public static int[] topologicalSortDfs(Graph graph) {
         List<List<Graph.Node>> adjList = graph.getAdjList();
         int n = adjList.size();
@@ -124,5 +125,44 @@ public class CycleDetection {
         }
         stack.push(root);
     }
+
+    public static int[] kahnsAlgorithm_TopologicalSortBfs(Graph graph) {
+        List<List<Graph.Node>> adjList = graph.getAdjList();
+        int n = adjList.size();
+        int[] inDegree = new int[n];
+        for(int i = 0; i < n; i++) {
+            for(Graph.Node next : adjList.get(i)) {
+                inDegree[next.getVertex()]++;
+            }
+        }
+        Queue<Integer> queue = new LinkedList<>();
+        for(int i = 0; i < n; i++) {
+            if(inDegree[i] == 0) queue.offer(i);
+        }
+
+        int[] topoSort = new int[n];
+        int i = 0;
+        while (!queue.isEmpty()) {
+            int node = queue.poll();
+            topoSort[i++] = node;
+
+            for (Graph.Node next : adjList.get(node)) {
+                int vertex = next.getVertex();
+                inDegree[vertex]--;
+                if(inDegree[vertex] == 0) queue.add(vertex);
+            }
+        }
+
+        return topoSort;
+    }
+
+    public static boolean byTopologicalSorting(Graph graph) {
+        int[] topoSort = kahnsAlgorithm_TopologicalSortBfs(graph);
+        //int[] topoSort = topologicalSortDfs(graph);   use any topo sort algo
+        if(topoSort.length == graph.getAdjList().size()) return false;
+        return true;
+    }
+
+
 
 }
