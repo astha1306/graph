@@ -2,15 +2,14 @@ package com.dsa.graph.algorithms;
 
 import com.dsa.graph.Graph;
 
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
+import java.util.*;
 
 public class ShortestPath {
 
     public static int[] byBfs(Graph graph) {
         //given unit distance between each node, find shortest path to each node from src(0)
+        //Time complexity(BFS) : Vertex + 2Edges
+        //Space complexity : N
         List<List<Graph.Node>> adjList = graph.getAdjList();
         int n = adjList.size();
 
@@ -37,4 +36,6 @@ public class ShortestPath {
         }
         return dist;
     }
+
+
 }

@@ -14,9 +14,11 @@ public class Main {
 
     public static void main(String[] args) {
 
-        CycleDetection_inDirectedGraphDfs_Test();
+        //traversal_test();
 
-        ShortestPath_byBfs_Test();
+        //CycleDetection_inDirectedGraphDfs_Test();
+
+        //ShortestPath_byBfs_Test();
     }
 
     public static void traversal_test() {
