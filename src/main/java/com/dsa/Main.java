@@ -69,6 +69,6 @@ public class Main {
 
         Graph graph = new Graph(edges);
 
-        System.out.println(Arrays.toString(ShortestPath.byBfs(graph)));
+        System.out.println(Arrays.toString(ShortestPath.byBfsForUnitWeight(graph)));
     }
 }
