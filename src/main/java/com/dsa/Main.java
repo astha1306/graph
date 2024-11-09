@@ -36,7 +36,10 @@ public class Main {
         graph.printGraphAdjList();
 
         System.out.println(Arrays.toString(BFS.traversalIterative(graph, 1)));
-        System.out.println(Arrays.toString(DFS.dfsTraversalRecursive(graph)));
+        System.out.println(Arrays.toString(BFS.traversalIterative(graph, 1)));
+        System.out.println(Arrays.toString(DFS.traversalRecursive(graph)));
+        System.out.println(Arrays.toString(DFS.traversalIterative(graph)));
+
     }
 
     public static void CycleDetection_inDirectedGraphDfs_Test() {

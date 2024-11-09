@@ -97,7 +97,6 @@ public class CycleDetection {
         return false;
     }
 
-
     //Topological Sorting : the src should appear before its dest.
     public static int[] topologicalSortDfs(Graph graph) {
         List<List<Graph.Node>> adjList = graph.getAdjList();
