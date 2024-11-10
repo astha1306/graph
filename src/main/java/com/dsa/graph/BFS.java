@@ -65,5 +65,6 @@ public class BFS {
                 visited[next.getVertex()] = 1;
             }
         }
+        traversalRecursive(graph, queue, visited, bfs, i);
     }
 }
