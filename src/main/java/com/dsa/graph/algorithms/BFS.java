@@ -1,4 +1,6 @@
-package com.dsa.graph;
+package com.dsa.graph.algorithms;
+
+import com.dsa.graph.Graph;
 
 import java.util.ArrayList;
 import java.util.LinkedList;

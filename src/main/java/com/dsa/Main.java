@@ -1,7 +1,7 @@
 package com.dsa;
 
-import com.dsa.graph.BFS;
-import com.dsa.graph.DFS;
+import com.dsa.graph.algorithms.BFS;
+import com.dsa.graph.algorithms.DFS;
 import com.dsa.graph.Graph;
 import com.dsa.graph.algorithms.CycleDetection;
 import com.dsa.graph.algorithms.ShortestPath;
@@ -34,8 +34,9 @@ public class Main {
         Graph graph = new Graph(edges);
 
         graph.printGraphAdjList();
+        //graph.printGraphAdjMatrix();
 
-        System.out.println(Arrays.toString(BFS.traversalIterative(graph, 1)));
+        System.out.println(Arrays.toString(BFS.traversalRecursive(graph, 1)));
         System.out.println(Arrays.toString(BFS.traversalIterative(graph, 1)));
         System.out.println(Arrays.toString(DFS.traversalRecursive(graph)));
         System.out.println(Arrays.toString(DFS.traversalIterative(graph)));
