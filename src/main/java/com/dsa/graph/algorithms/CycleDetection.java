@@ -63,7 +63,6 @@ public class CycleDetection {
         return false;
     }
 
-
     public static boolean inDirectedGraphDfs(Graph graph) {
         List<List<Graph.Node>> adjList = graph.getAdjList();
         int n = adjList.size();
@@ -89,9 +88,9 @@ public class CycleDetection {
             if(!visited[next.getVertex()]) {
                 //when node not visited
                 if(inDirectedGraphDfs(graph, visited, pathVisited, next.getVertex())) return true;
-                //if node is previously visited but it has to be visited on same path
-                else if(pathVisited[next.getVertex()]) return true;
             }
+            //if node is previously visited, but it has to be visited on same path
+            else if(pathVisited[next.getVertex()]) return true;
         }
         pathVisited[root] = false;
         return false;
@@ -125,6 +124,7 @@ public class CycleDetection {
         stack.push(root);
     }
 
+    //inDirectedGraphBfs
     public static int[] kahnsAlgorithm_TopologicalSortBfs(Graph graph) {
         List<List<Graph.Node>> adjList = graph.getAdjList();
         int n = adjList.size();
