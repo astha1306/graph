@@ -6,7 +6,7 @@ import java.util.*;
 
 public class ShortestPath {
 
-    public static int[] byBfsForUnitWeight(Graph graph) {
+    public static int[] inUGbyBfsForUnitWeight(Graph graph) {
         //given unit distance between each node, find shortest path to each node from src(0)
         //Time complexity(BFS) : Vertex + 2Edges
         //Space complexity : N
@@ -35,6 +35,32 @@ public class ShortestPath {
             if(dist[i] == Integer.MAX_VALUE) dist[i] = -1;
         }
         return dist;
+    }
+
+    public static int[] inDAGbyBfs(Graph graph) {
+        int n = graph.getAdjList().size();
+        int[] path = new int[n];//0 1 MAX 1
+        Arrays.fill(path, Integer.MAX_VALUE);
+        Queue<Integer> queue = new LinkedList<>();
+
+        queue.offer(0);
+        path[0] = 0;
+        while (!queue.isEmpty()) {
+            int node = queue.poll();
+
+            for(Graph.Node next : graph.getAdjList().get(node)) {
+                int vertex = next.getVertex();
+                int weight = next.getWeight();
+                if(path[node] + weight < path[vertex]) {
+                    path[vertex] = path[node] + weight;
+                    queue.offer(vertex);
+                }
+            }
+        }
+        for(int i = 0; i<n; i++) {
+            if(path[i] == Integer.MAX_VALUE) path[i] =-1;
+        }
+        return path;
     }
 
     //Dijkstra is not applicable for negative weights

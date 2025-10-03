@@ -7,10 +7,17 @@ import java.util.List;
 public class Graph {
 
     private List<List<Node>> adjList;
+
+    private int[][] adjMatrix;
+
     private boolean isDirected;
 
     public List<List<Node>> getAdjList() {
         return adjList;
+    }
+
+    public int[][] getAdjMatrix() {
+        return adjMatrix;
     }
 
     public boolean isDirected() {
@@ -29,6 +36,7 @@ public class Graph {
         for(Edge edge : edges) {
             n = Math.max(n , Math.max(edge.src, edge.dest));
         }
+        adjMatrix = new int[n+1][n+1];
         for (int i = 0; i <= n; i++) {
             adjList.add(new ArrayList<Node>());
         }
@@ -44,9 +52,11 @@ public class Graph {
     //add an edge
     public void addEdge(Edge edge) {
         adjList.get(edge.src).add(new Node(edge.dest, edge.weight));
+        adjMatrix[edge.src][edge.dest] = edge.weight == 0 ? 1 : edge.weight;
         if(!this.isDirected) {//undirected
             adjList.get(edge.getDest()).add(new Node(edge.src, edge.weight));
-        }
+            adjMatrix[edge.dest][edge.src] = edge.weight == 0 ? 1 : edge.weight;
+         }
     }
 
     public void printGraph() {
@@ -64,6 +74,17 @@ public class Graph {
     public void printGraphAdjList() {
         for(int i = 0; i < adjList.size(); i++) {
             System.out.println(i + "--" + adjList.get(i));
+        }
+    }
+
+    public void printGraphAdjMatrix() {
+        for(int i = 0; i < adjMatrix.length; i++) {
+            System.out.print("[ ");
+            for(int j = 0; j < adjMatrix.length; j++) {
+                System.out.print(adjMatrix[i][j] + " ");
+            }
+            System.out.print("]");
+            System.out.println();
         }
     }
 
