@@ -6,9 +6,7 @@ import com.dsa.graph.Graph;
 import com.dsa.graph.algorithms.CycleDetection;
 import com.dsa.graph.algorithms.ShortestPath;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class Main {
 
@@ -19,6 +17,37 @@ public class Main {
         //CycleDetection_inDirectedGraphDfs_Test();
 
         //ShortestPath_byBfs_Test();
+
+        ShortestPath_inDAGbyBfs_Test();
+
+
+
+    }
+
+    public static int connectedComponent(List<List<Integer>> adjList, int n) {
+        int[] vis = new int[n+1];
+        int ans = 0;
+        for(int i = 1; i< n; i++) {
+            if(vis[i] == 0) {
+                ans++;
+                bfs(adjList, vis, i);
+            }
+        }
+        return ans;
+    }
+
+    public static void bfs(List<List<Integer>> adjList, int[] vis, int i) {
+        Queue<Integer> q = new LinkedList<>();
+        q.offer(i);
+        while (!q.isEmpty()) {
+            int root = q.poll();
+            vis[root] = 1;
+            for(int next : adjList.get(root)) {
+                if(vis[next] == 0) {
+                    q.offer(next);
+                }
+            }
+        }
     }
 
     public static void traversal_test() {
@@ -73,6 +102,21 @@ public class Main {
 
         Graph graph = new Graph(edges);
 
-        System.out.println(Arrays.toString(ShortestPath.byBfsForUnitWeight(graph)));
+        System.out.println(Arrays.toString(ShortestPath.inUGbyBfsForUnitWeight(graph)));
+    }
+
+    public static void ShortestPath_inDAGbyBfs_Test() {
+        List<Graph.Edge> edges = new ArrayList<>();
+        edges.add(new Graph.Edge(0, 1,2));
+        edges.add(new Graph.Edge(0, 4,1));
+        edges.add(new Graph.Edge(1, 2,3));
+        edges.add(new Graph.Edge(2, 3,6));
+        edges.add(new Graph.Edge(4, 2,2));
+        edges.add(new Graph.Edge(4, 5,4));
+        edges.add(new Graph.Edge(5, 3,1));
+
+        Graph graph = new Graph(edges, true);
+
+        System.out.println(Arrays.toString(ShortestPath.inDAGbyBfs(graph)));
     }
 }
